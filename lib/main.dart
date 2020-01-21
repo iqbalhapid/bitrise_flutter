@@ -97,7 +97,7 @@ class _MyHomePageState extends State<MyHomePage> {
               'You have pushed the button this many times:',
             ),
             Text(
-              '$_counter $myapi yes',
+              '$_counter $myapi',
               style: Theme.of(context).textTheme.display1,
             ),
           ],
