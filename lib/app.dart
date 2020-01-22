@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shopjoy/screen/landingPage.dart';
+import 'package:shopjoy/screen/auth/loginPage.dart';
+import 'package:shopjoy/screen/auth/registerPage.dart';
 
 class App extends StatelessWidget {
   
@@ -23,6 +25,10 @@ Route<dynamic> _getRoute(RouteSettings setting){
   switch (setting.name){
     case '/landingPage' :
     return MaterialPageRoute(builder: (_) => Scaffold(body: LandingPage()));
+    case '/loginPage' :
+    return MaterialPageRoute(builder: (_) => Scaffold(body: LoginPage()));
+    case '/registerPage' :
+    return MaterialPageRoute(builder: (_) => Scaffold(body: RegisterPage()));
   default :
     return null;
   }
