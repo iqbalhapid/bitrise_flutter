@@ -78,10 +78,10 @@ class GlobalWidget {
         labelStyle: TextStyle(fontSize: fontSize, color: labelColor));
   }
 
-  showAlert(BuildContext context, String title, String desc){
+  showAlert(BuildContext context, String title, String desc, bool isSuccess){
     Alert(
       context: context,
-      type: AlertType.warning,
+      type:  isSuccess ? AlertType.success : AlertType.error,
       title: title,
       desc: desc,
       buttons: [
@@ -107,4 +107,23 @@ class GlobalWidget {
       ],
     ).show();
   }
+
+  final bottomBar = BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            title: Text('Home'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.business),
+            title: Text(''),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.account_circle),
+            title: Text('Profile'),
+          ),
+        ],
+        selectedItemColor: Colors.amber[800],
+      );
+
 }

@@ -11,7 +11,7 @@ class FetchApi {
       "username" : username,
       "password" : password
     });
-    resJson = await res.data.toString();
+    resJson = res.data.toString();
     print(resJson);
     return resJson;
   }
