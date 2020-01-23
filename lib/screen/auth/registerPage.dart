@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shopjoy/screen/globalWidget/globalWidget.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:shopjoy/api/apiServices.dart';
 
 class RegisterPage extends StatefulWidget {
   RegisterPage({Key key}) : super(key: key);
@@ -80,20 +81,6 @@ class _RegisterPageState extends State<RegisterPage> {
                   child: globalWidget.actionButton(
                       context, 'REGISTER', validateInputs, Colors.lightBlue)),
               SizedBox(height: 20.0),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text("Don't have an account? "),
-                  GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(context, '/registerPage');
-                      },
-                      child: Text('Register',
-                          style: TextStyle(
-                              color: Colors.greenAccent,
-                              fontWeight: FontWeight.bold)))
-                ],
-              ),
             ],
           ),
         ),
@@ -102,17 +89,24 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   final padding = EdgeInsets.fromLTRB(0, 20, 0, 20);
-  
 
-  validateInputs() {
+  validateInputs() async {
     if (_formkey.currentState.validate()) {
-      _formkey.currentState.save();
+      // _formkey.currentState.save();
+      await tryRegist.postRegist(_email, _username, _password);
+      if (tryRegist.resJson != null) {
+        return globalWidget.showAlert(
+            context, 'register success', 'click to continue');
+      }
+      return globalWidget.showAlert(context, 'failed register', 'try again');
     } else {
-            setState(() {
+      setState(() {
         _autoValidate = true;
       });
     }
   }
+
+  final tryRegist = new FetchApi();
 
   final emailValidator = MultiValidator([
     RequiredValidator(errorText: 'Email cannot be empty'),
