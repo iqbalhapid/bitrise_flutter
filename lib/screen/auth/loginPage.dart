@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shopjoy/api/apiServices.dart';
 import 'package:shopjoy/screen/globalWidget/globalWidget.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 
@@ -41,7 +42,6 @@ class _LoginPageState extends State<LoginPage> {
                           decoration: globalWidget.inputDecoration(
                               Colors.white, Colors.white, 'Email', 15)),
                     ),
-                    
                     Padding(
                       padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
                       child: TextFormField(
@@ -52,7 +52,6 @@ class _LoginPageState extends State<LoginPage> {
                           decoration: globalWidget.inputDecoration(
                               Colors.white, Colors.white, 'Password', 15)),
                     ),
-                   
                   ],
                 ),
               ),
@@ -83,15 +82,29 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  validateInputs() {
+  validateInputs() async {
     if (_formkey.currentState.validate()) {
-      _formkey.currentState.save();
+      // _formkey.currentState.save();
+      try {
+        await tryLogin.postLogin(_email, _password);
+      } catch (err) {
+        return globalWidget.showAlert(
+            context, 'failed login', 'try again', false);
+      }
+
+      if (tryLogin.resJson != null) {
+        return Navigator.of(context).pushNamed('/dashboard');
+      }
+      return globalWidget.showAlert(
+          context, 'failed login', 'try again', false);
     } else {
       setState(() {
         _autoValidate = true;
       });
     }
   }
+
+  final tryLogin = FetchApi();
 
   @override
   Widget build(BuildContext context) {

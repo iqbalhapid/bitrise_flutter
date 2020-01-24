@@ -93,12 +93,17 @@ class _RegisterPageState extends State<RegisterPage> {
   validateInputs() async {
     if (_formkey.currentState.validate()) {
       // _formkey.currentState.save();
-      await tryRegist.postRegist(_email, _username, _password);
+      try {
+        await tryRegist.postRegist(_email, _username, _password);
+      } catch (err) {
+        return globalWidget.showAlert(context, 'failed register', 'try again', false);
+      }
+
       if (tryRegist.resJson != null) {
         return globalWidget.showAlert(
-            context, 'register success', 'click to continue');
+            context, 'register success', 'click to continue', true);
       }
-      return globalWidget.showAlert(context, 'failed register', 'try again');
+      return globalWidget.showAlert(context, 'failed register', 'try again', false);
     } else {
       setState(() {
         _autoValidate = true;
