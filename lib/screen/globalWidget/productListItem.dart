@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shopjoy/screen/globalWidget/productDetail.dart';
+
 
 class ProductsListItem extends StatelessWidget {
   final String name;
@@ -30,9 +32,13 @@ class ProductsListItem extends StatelessWidget {
   _buildProductItemCard(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.of(context).pushNamed('/productDetail');
+        Navigator.push(context, MaterialPageRoute(
+    builder: (context) =>
+    new ProductDetailPage())
+  );
       },
       child: Card(
+        color: Colors.white,
         elevation: 4.0,
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -90,7 +96,7 @@ class ProductsListItem extends StatelessWidget {
                       ),
                       Text(
                         "$discount\% off",
-                        style: TextStyle(fontSize: 12.0, color: Colors.grey),
+                        style: TextStyle(fontSize: 12.0, color: Colors.redAccent),
                       ),
                     ],
                   ),
