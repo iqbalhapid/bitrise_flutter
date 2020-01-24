@@ -4,13 +4,14 @@ import 'package:shopjoy/screen/auth/loginPage.dart';
 import 'package:shopjoy/screen/auth/registerPage.dart';
 import 'package:shopjoy/screen/homePage.dart';
 import 'package:shopjoy/screen/globalWidget/productDetail.dart';
+import 'package:shopjoy/screen/globalWidget/splashscreen.dart';
 
 class App extends StatelessWidget {
   
   Widget _appChild(){
     return MaterialApp(
       title: 'Shop Joy',
-      initialRoute: '/homePage',
+      initialRoute: '/splashScreen',
       onGenerateRoute: _getRoute,
     );
   }
@@ -25,6 +26,8 @@ class App extends StatelessWidget {
 
 Route<dynamic> _getRoute(RouteSettings setting){
   switch (setting.name){
+    case '/splashScreen' :
+    return MaterialPageRoute(builder: (_) => Scaffold(body: SplashScreen()));
     case '/landingPage' :
     return MaterialPageRoute(builder: (_) => Scaffold(body: LandingPage()));
     case '/loginPage' :
