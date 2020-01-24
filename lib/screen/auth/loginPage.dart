@@ -93,7 +93,7 @@ class _LoginPageState extends State<LoginPage> {
       }
 
       if (tryLogin.resJson != null) {
-        return Navigator.of(context).pushNamed('/dashboard');
+        return Navigator.of(context).pushReplacementNamed('/homePage');
       }
       return globalWidget.showAlert(
           context, 'failed login', 'try again', false);

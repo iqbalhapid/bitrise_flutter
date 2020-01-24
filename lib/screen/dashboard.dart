@@ -11,7 +11,6 @@ class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: globalWidget.bottomBar,
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: Colors.blueGrey,
@@ -19,12 +18,16 @@ class _DashboardState extends State<Dashboard> {
           "PRODUCT LIST",
           style: TextStyle(color: Colors.white),
         ),
+        actions: <Widget>[
+          globalWidget.buttonIcon(Icon(Icons.favorite), 30, 'wish list', Colors.redAccent, (){}),
+          globalWidget.buttonIcon(Icon(Icons.local_mall), 30, 'your chart', Colors.amber[300], (){}),
+        ],
       ),
       body: Container(
         decoration: globalWidget.background(
             Colors.black87, Colors.grey, Colors.grey, Colors.black87),
         child: _buildProductListPage(),
-      ),
+      ),   
     );
   }
 
@@ -35,17 +38,17 @@ class _DashboardState extends State<Dashboard> {
     return Container(
       color: Colors.grey[100],
       child: ListView.builder(
-          itemCount: 5,
-          itemBuilder: (context, index) {
-            if (index == 0) {
-              return _buildFilterWidgets(screenSize);
-            } else if (index == 4) {
-              return globalWidget.sizedBox(12.0, 0);
-            } else {
-              return _dummyProductsList()[index];
-            }
-          },
-          ),
+        itemCount: 5,
+        itemBuilder: (context, index) {
+          if (index == 0) {
+            return _buildFilterWidgets(screenSize);
+          } else if (index == 4) {
+            return globalWidget.sizedBox(12.0, 0);
+          } else {
+            return _dummyProductsList()[index];
+          }
+        },
+      ),
     );
   }
 
@@ -67,7 +70,7 @@ class _DashboardState extends State<Dashboard> {
                 width: 2.0,
                 height: 24.0,
               ),
-              _buildFilterButton("REFINE"),
+              _buildFilterButton("CATEGORY"),
             ],
           ),
         ),
@@ -145,6 +148,6 @@ class _DashboardState extends State<Dashboard> {
         imageUrl:
             "https://assets.myntassets.com/h_240,q_90,w_180/v1/assets/images/1304671/2016/4/14/11460624898615-Hancock-Men-Shirts-8481460624898035-1_mini.jpg",
       ),
-    ];  
-}
+    ];
+  }
 }

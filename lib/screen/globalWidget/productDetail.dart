@@ -22,11 +22,11 @@ class _ProductDetailPageState extends State<ProductDetailPage>
             Navigator.of(context).pop();
           },
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.blueGrey,
         title: Text(
           "PRODUCT DETAIL",
           style: TextStyle(
-            color: Colors.black,
+            color: Colors.white,
           ),
         ),
       ),

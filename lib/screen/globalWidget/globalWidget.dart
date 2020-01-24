@@ -11,7 +11,7 @@ class GlobalWidget {
         minWidth: 300,
         height: 70,
         onPressed: () {
-          Navigator.pushNamed(context, nav);
+          Navigator.pushReplacementNamed(context, nav);
         },
         child: Text(
           title,
@@ -108,22 +108,14 @@ class GlobalWidget {
     ).show();
   }
 
-  final bottomBar = BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            title: Text('Home'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.business),
-            title: Text(''),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle),
-            title: Text('Profile'),
-          ),
-        ],
-        selectedItemColor: Colors.amber[800],
-      );
-
+  buttonIcon(Widget myicon, double size, String tip, Color color, Function onpress){
+    return
+    IconButton(
+            icon: myicon,
+            iconSize: size,
+            tooltip: tip,
+            color: color,
+            onPressed: onpress,
+          );
+  }
 }
