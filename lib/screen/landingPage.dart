@@ -13,7 +13,7 @@ class _LandingState extends State<LandingPage> {
         body: Container(
           decoration: globalWidget.background(Colors.black87, Colors.deepPurple, Colors.lightBlue, Colors.deepOrange),
           child: Column(
-            children: <Widget>[globalWidget.logoApp(),
+            children: <Widget>[globalWidget.logoApp('lib/assets/img/logo_joycash.png', null, null),
                       globalWidget.sizedBox(300, 0),
                       globalWidget.button(context, 'LOGIN', '/loginPage'), 
                       globalWidget.sizedBox(10, 0),

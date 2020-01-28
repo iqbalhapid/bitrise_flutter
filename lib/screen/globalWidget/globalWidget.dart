@@ -49,14 +49,20 @@ class GlobalWidget {
         ));
   }
 
-  Widget logoApp() {
+  Widget logoApp(String filePath, double height, double width) {
     return Container(
         margin: EdgeInsets.only(left: 30, top: 50),
         child: Center(
           child: Image(
-            image: AssetImage('lib/assets/img/logo_joycash.png'),
+            image: AssetImage(filePath),
+            height: height,
+            width: width,
           ),
         ));
+  }
+
+  Widget loadingIndicator(){
+    return logoApp('lib/assets/img/push cart.gif', 150, 100);
   }
 
   background(Color color1, Color color2, Color color3, Color color4) {

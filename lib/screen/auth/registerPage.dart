@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shopjoy/screen/globalWidget/globalWidget.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:shopjoy/api/apiServices.dart';
+import 'package:provider/provider.dart';
 
 class RegisterPage extends StatefulWidget {
   RegisterPage({Key key}) : super(key: key);
@@ -12,6 +13,7 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
   bool _autoValidate = false;
+  bool isLoading = false;
   String _email;
   String _username;
   String _password;
@@ -19,6 +21,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final globalWidget = new GlobalWidget();
 
   Widget _bodyRegister() {
+    final appState = Provider.of<FetchApi>(context, listen: true);
     return Container(
       child: Scaffold(
         backgroundColor: Colors.black45,
@@ -78,8 +81,10 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
               Padding(
                   padding: padding,
-                  child: globalWidget.actionButton(
-                      context, 'REGISTER', validateInputs, Colors.lightBlue)),
+                  child: isLoading
+                      ? globalWidget.loadingIndicator()
+                      : globalWidget.actionButton(context, 'REGISTER',
+                          validateInputs, Colors.lightBlue)),
               SizedBox(height: 20.0),
             ],
           ),
@@ -92,24 +97,49 @@ class _RegisterPageState extends State<RegisterPage> {
 
   validateInputs() async {
     if (_formkey.currentState.validate()) {
+      setState(() {
+        isLoading = true;
+      });
+      
       // _formkey.currentState.save();
       try {
         await tryRegist.postRegist(_email, _username, _password);
+        // validateRegist();
       } catch (err) {
-        return globalWidget.showAlert(context, 'failed register', 'try again', false);
+        return globalWidget.showAlert(
+            context, 'failed register', 'try again', false);
+      }
+      
+      setState(() {
+        isLoading = false;
+      });
+      if (tryRegist.resJson != null) {
+        return Navigator.of(context).pushNamed('/loginPage');
       }
 
-      if (tryRegist.resJson != null) {
-        return globalWidget.showAlert(
-            context, 'register success', 'click to continue', true);
-      }
-      return globalWidget.showAlert(context, 'failed register', 'try again', false);
+      return isLoading;
     } else {
       setState(() {
         _autoValidate = true;
       });
     }
   }
+
+  // validateRegist() async {
+  //   return FutureBuilder(
+  //     future: Provider.of<FetchApi>(context, listen: false)
+  //         .postRegist(_email, _username, _password),
+  //     builder: (context, snapshot) {
+  //       if (snapshot.hasData) {
+  //         return Text(snapshot.data.toString());
+  //       } else if (snapshot.hasError) {
+  //         return Text("${snapshot.error}");
+  //       } else {
+  //         return Text('loading');
+  //       }
+  //     },
+  //   );
+  // }
 
   final tryRegist = new FetchApi();
 
