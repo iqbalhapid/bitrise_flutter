@@ -119,3 +119,53 @@ class GlobalWidget {
           );
   }
 }
+
+class Product {
+  final String mainImage;
+  final List<String> images;
+  final List<String> tags;
+  final List<Color> colors;
+  final List<int> size;
+  final String title;
+  final String price;
+  final double rating;
+  Product({
+    this.rating,
+    this.price,
+    this.mainImage,
+    this.images,
+    this.tags,
+    this.colors,
+    this.size,
+    this.title,
+  });
+}
+
+List<Product> bag = [
+  Product(
+    title: "Hand Bag",
+    price: "IDR. 4.000.000.",
+    images: [
+      'http://www.pngall.com/wp-content/uploads/4/Leather-Bag-PNG.png',
+      'https://www.stickpng.com/assets/images/580b57fbd9996e24bc43bf85.png',
+      'https://img.favpng.com/23/4/0/tote-bag-red-leather-handbag-png-favpng-ki0rQC3dTsbB0fdQT3WvmvxrU.jpg',
+    ],
+    colors: [Colors.black, Colors.red, Colors.yellow],
+    mainImage: 'http://www.pngall.com/wp-content/uploads/4/Leather-Bag-PNG.png',
+    size: [1,2,3,4,5,6,7,8,9],
+    tags: ['Product', 'Bag', 'HandBag', 'Price', 'Quality']
+  ),
+  Product(
+    title: "Adidas Superstar",
+    price: "IDR. 4.999.999",
+    images: [
+      'http://www.miss-blog.fr/media/import/Images/adida%20superstar-896uqv.jpg',
+      'https://www.transparentpng.com/thumb/adidas-shoes/a4xO3G-adidas-shoes-adidas-shoe-kids-superstar-daddy-grade.png',
+      'https://img.favpng.com/23/4/0/tote-bag-red-leather-handbag-png-favpng-ki0rQC3dTsbB0fdQT3WvmvxrU.jpg',
+    ],
+    colors: [Colors.black, Colors.red, Colors.yellow],
+    mainImage: 'http://www.miss-blog.fr/media/import/Images/adida%20superstar-896uqv.jpg',
+    size: [1,2,3,4,5,6,7,8,9],
+    tags: ['Product', 'Shoe', 'Adidas', 'Price', 'Quality']
+  ),
+];
