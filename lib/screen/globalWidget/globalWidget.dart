@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 class GlobalWidget {
   Widget button(BuildContext context, String title, String nav) {
@@ -11,7 +12,7 @@ class GlobalWidget {
         minWidth: 300,
         height: 70,
         onPressed: () {
-          Navigator.pushNamed(context, nav);
+          Navigator.pushReplacementNamed(context, nav);
         },
         child: Text(
           title,
@@ -48,6 +49,15 @@ class GlobalWidget {
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
         ));
   }
+  Widget progressHud(bool isLoading, Container container){
+    return ModalProgressHUD(
+          progressIndicator: Center(
+              child: loadingIndicator()),
+          color: Colors.black87,
+          opacity: 0.6,
+          inAsyncCall: isLoading,
+          child: container);
+  }
 
   Widget logoApp(String filePath, double height, double width) {
     return Container(
@@ -62,7 +72,17 @@ class GlobalWidget {
   }
 
   Widget loadingIndicator(){
-    return logoApp('lib/assets/img/push cart.gif', 150, 100);
+    return Center(child: Column(
+      children: <Widget>[
+        logoApp('lib/assets/img/push cart.gif', 150, 100),
+        Text(
+          "Please wait . . .",
+          style: TextStyle(
+            color: Colors.white
+          )
+          )
+      ],
+    ));
   }
 
   background(Color color1, Color color2, Color color3, Color color4) {
@@ -114,22 +134,64 @@ class GlobalWidget {
     ).show();
   }
 
-  final bottomBar = BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            title: Text('Home'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.business),
-            title: Text(''),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle),
-            title: Text('Profile'),
-          ),
-        ],
-        selectedItemColor: Colors.amber[800],
-      );
-
+  buttonIcon(Widget myicon, double size, String tip, Color color, Function onpress){
+    return
+    IconButton(
+            icon: myicon,
+            iconSize: size,
+            tooltip: tip,
+            color: color,
+            onPressed: onpress,
+          );
+  }
 }
+
+class Product {
+  final String mainImage;
+  final List<String> images;
+  final List<String> tags;
+  final List<Color> colors;
+  final List<int> size;
+  final String title;
+  final String price;
+  final double rating;
+  Product({
+    this.rating,
+    this.price,
+    this.mainImage,
+    this.images,
+    this.tags,
+    this.colors,
+    this.size,
+    this.title,
+  });
+}
+
+List<Product> bag = [
+  Product(
+    title: "Hand Bag",
+    price: "IDR. 4.000.000.",
+    images: [
+      'http://www.pngall.com/wp-content/uploads/4/Leather-Bag-PNG.png',
+      'https://www.stickpng.com/assets/images/580b57fbd9996e24bc43bf85.png',
+      'https://img.favpng.com/23/4/0/tote-bag-red-leather-handbag-png-favpng-ki0rQC3dTsbB0fdQT3WvmvxrU.jpg',
+    ],
+    colors: [Colors.black, Colors.red, Colors.yellow],
+    mainImage: 'http://www.pngall.com/wp-content/uploads/4/Leather-Bag-PNG.png',
+    size: [1,2,3,4,5,6,7,8,9],
+    tags: ['Product', 'Bag', 'HandBag', 'Price', 'Quality']
+  ),
+  Product(
+    title: "Adidas Superstar",
+    price: "IDR. 4.999.999",
+    images: [
+      'http://www.miss-blog.fr/media/import/Images/adida%20superstar-896uqv.jpg',
+      'https://www.transparentpng.com/thumb/adidas-shoes/a4xO3G-adidas-shoes-adidas-shoe-kids-superstar-daddy-grade.png',
+      'https://img.favpng.com/23/4/0/tote-bag-red-leather-handbag-png-favpng-ki0rQC3dTsbB0fdQT3WvmvxrU.jpg',
+    ],
+    colors: [Colors.black, Colors.red, Colors.yellow],
+    mainImage: 'http://www.miss-blog.fr/media/import/Images/adida%20superstar-896uqv.jpg',
+    size: [1,2,3,4,5,6,7,8,9],
+    tags: ['Product', 'Shoe', 'Adidas', 'Price', 'Quality']
+  ),
+];

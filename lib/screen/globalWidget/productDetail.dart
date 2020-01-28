@@ -22,11 +22,11 @@ class _ProductDetailPageState extends State<ProductDetailPage>
             Navigator.of(context).pop();
           },
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.amberAccent,
         title: Text(
           "PRODUCT DETAIL",
           style: TextStyle(
-            color: Colors.black,
+            color: Colors.white,
           ),
         ),
       ),
@@ -178,7 +178,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
             "30% Off",
             style: TextStyle(
               fontSize: 12.0,
-              color: Colors.blue[700],
+              color: Colors.redAccent,
             ),
           ),
         ],
@@ -368,13 +368,13 @@ class _ProductDetailPageState extends State<ProductDetailPage>
             flex: 1,
             child: RaisedButton(
               onPressed: () {},
-              color: Colors.grey,
+              color: Colors.redAccent,
               child: Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Icon(
-                      Icons.list,
+                      Icons.favorite,
                       color: Colors.white,
                     ),
                     SizedBox(
@@ -393,7 +393,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
             flex: 2,
             child: RaisedButton(
               onPressed: () {},
-              color: Colors.greenAccent,
+              color: Colors.amber,
               child: Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -406,7 +406,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                       width: 4.0,
                     ),
                     Text(
-                      "ADD TO BAG",
+                      "ADD TO CHART",
                       style: TextStyle(color: Colors.white),
                     ),
                   ],

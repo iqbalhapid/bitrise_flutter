@@ -3,6 +3,7 @@ import 'package:shopjoy/screen/globalWidget/globalWidget.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:shopjoy/api/apiServices.dart';
 import 'package:provider/provider.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 class RegisterPage extends StatefulWidget {
   RegisterPage({Key key}) : super(key: key);
@@ -21,74 +22,74 @@ class _RegisterPageState extends State<RegisterPage> {
   final globalWidget = new GlobalWidget();
 
   Widget _bodyRegister() {
-    final appState = Provider.of<FetchApi>(context, listen: true);
     return Container(
       child: Scaffold(
-        backgroundColor: Colors.black45,
-        body: Container(
-          width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
-          padding: EdgeInsets.all(45),
-          child: ListView(
-            children: <Widget>[
-              globalWidget.sizedBox(120, 0),
-              Form(
-                key: _formkey,
-                autovalidate: _autoValidate,
-                child: Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: padding,
-                      child: TextFormField(
-                          validator: emailValidator,
-                          onChanged: (text) => _email = text,
-                          style: TextStyle(color: Colors.white),
-                          decoration: globalWidget.inputDecoration(
-                              Colors.white, Colors.white, 'Email', 15)),
-                    ),
-                    Padding(
-                      padding: padding,
-                      child: TextFormField(
-                          validator: usernameValidator,
-                          onChanged: (text) => _username = text,
-                          style: TextStyle(color: Colors.white),
-                          decoration: globalWidget.inputDecoration(
-                              Colors.white, Colors.white, 'Username', 15)),
-                    ),
-                    Padding(
-                      padding: padding,
-                      child: TextFormField(
-                          validator: passwordValidator,
-                          obscureText: true,
-                          onChanged: (text) => _password = text,
-                          style: TextStyle(color: Colors.white),
-                          decoration: globalWidget.inputDecoration(
-                              Colors.white, Colors.white, 'Password', 15)),
-                    ),
-                    Padding(
-                      padding: padding,
-                      child: TextFormField(
-                          obscureText: true,
-                          validator: (text) => MatchValidator(
-                                  errorText: 'passwords do not match')
-                              .validateMatch(text, _password),
-                          style: TextStyle(color: Colors.white),
-                          decoration: globalWidget.inputDecoration(Colors.white,
-                              Colors.white, 'Retype Password', 15)),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
+          backgroundColor: Colors.black45,
+          body: globalWidget.progressHud(isLoading, registerContainer())),
+    );
+  }
+
+  Widget registerContainer() {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
+      padding: EdgeInsets.all(45),
+      child: ListView(
+        children: <Widget>[
+          globalWidget.sizedBox(120, 0),
+          Form(
+            key: _formkey,
+            autovalidate: _autoValidate,
+            child: Column(
+              children: <Widget>[
+                Padding(
                   padding: padding,
-                  child: isLoading
-                      ? globalWidget.loadingIndicator()
-                      : globalWidget.actionButton(context, 'REGISTER',
-                          validateInputs, Colors.lightBlue)),
-              SizedBox(height: 20.0),
-            ],
+                  child: TextFormField(
+                      validator: emailValidator,
+                      onChanged: (text) => _email = text,
+                      style: TextStyle(color: Colors.white),
+                      decoration: globalWidget.inputDecoration(
+                          Colors.white, Colors.white, 'Email', 15)),
+                ),
+                Padding(
+                  padding: padding,
+                  child: TextFormField(
+                      validator: usernameValidator,
+                      onChanged: (text) => _username = text,
+                      style: TextStyle(color: Colors.white),
+                      decoration: globalWidget.inputDecoration(
+                          Colors.white, Colors.white, 'Username', 15)),
+                ),
+                Padding(
+                  padding: padding,
+                  child: TextFormField(
+                      validator: passwordValidator,
+                      obscureText: true,
+                      onChanged: (text) => _password = text,
+                      style: TextStyle(color: Colors.white),
+                      decoration: globalWidget.inputDecoration(
+                          Colors.white, Colors.white, 'Password', 15)),
+                ),
+                Padding(
+                  padding: padding,
+                  child: TextFormField(
+                      obscureText: true,
+                      validator: (text) =>
+                          MatchValidator(errorText: 'passwords do not match')
+                              .validateMatch(text, _password),
+                      style: TextStyle(color: Colors.white),
+                      decoration: globalWidget.inputDecoration(
+                          Colors.white, Colors.white, 'Retype Password', 15)),
+                ),
+              ],
+            ),
           ),
-        ),
+          Padding(
+              padding: padding,
+              child: globalWidget.actionButton(
+                      context, 'REGISTER', validateInputs, Colors.lightBlue)),
+          SizedBox(height: 20.0),
+        ],
       ),
     );
   }
@@ -100,7 +101,7 @@ class _RegisterPageState extends State<RegisterPage> {
       setState(() {
         isLoading = true;
       });
-      
+
       // _formkey.currentState.save();
       try {
         await tryRegist.postRegist(_email, _username, _password);
@@ -109,7 +110,7 @@ class _RegisterPageState extends State<RegisterPage> {
         return globalWidget.showAlert(
             context, 'failed register', 'try again', false);
       }
-      
+
       setState(() {
         isLoading = false;
       });

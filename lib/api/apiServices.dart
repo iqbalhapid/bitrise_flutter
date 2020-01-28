@@ -25,6 +25,7 @@ class FetchApi with ChangeNotifier {
   Future<void> postRegist(String email, String username, String password) async {
     String baseUrl = 'https://travisci-heroku.herokuapp.com';
     _isFetching = true;
+    isFetch(true);
     notifyListeners();
 
     final res = await dio.post('$baseUrl/user/register',
@@ -32,6 +33,7 @@ class FetchApi with ChangeNotifier {
     resJson = res.data.toString();
 
     _isFetching = false;
+    isFetch(false);
     notifyListeners();
     print(resJson);
     return resJson;
