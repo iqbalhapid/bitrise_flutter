@@ -22,7 +22,7 @@ with SingleTickerProviderStateMixin {
     return new Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: Colors.blueGrey,
+        backgroundColor: Colors.amberAccent,
         title: Text(
           "PROFILE",
           style: TextStyle(color: Colors.white),
