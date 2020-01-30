@@ -1,20 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:shopjoy/api/apiServices.dart';
 import 'package:shopjoy/screen/landingPage.dart';
 import 'package:shopjoy/screen/auth/loginPage.dart';
 import 'package:shopjoy/screen/auth/registerPage.dart';
 import 'package:shopjoy/screen/homePage.dart';
 import 'package:shopjoy/screen/globalWidget/productDetail.dart';
+import 'package:provider/provider.dart';
 import 'package:shopjoy/screen/globalWidget/splashscreen.dart';
 import 'package:shopjoy/screen/userChart.dart';
 import 'package:shopjoy/screen/userCheckout.dart';
 
 class App extends StatelessWidget {
-  
-  Widget _appChild(){
-    return MaterialApp(
-      title: 'Shop Joy',
-      initialRoute: '/splashScreen',
-      onGenerateRoute: _getRoute,
+  Widget _appChild() {
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => FetchApi(),
+        ),
+      ],
+      child: Consumer<FetchApi>(
+        builder: (context, fetchApi, child) {
+          return MaterialApp(
+            title: 'Shop Joy',
+            initialRoute: '/loginPage',
+            onGenerateRoute: _getRoute,
+          );
+        },
+      ),
     );
   }
 

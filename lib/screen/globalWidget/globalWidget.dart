@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 class GlobalWidget {
   Widget button(BuildContext context, String title, String nav) {
@@ -48,15 +49,40 @@ class GlobalWidget {
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
         ));
   }
+  Widget progressHud(bool isLoading, Container container){
+    return ModalProgressHUD(
+          progressIndicator: Center(
+              child: loadingIndicator()),
+          color: Colors.black87,
+          opacity: 0.6,
+          inAsyncCall: isLoading,
+          child: container);
+  }
 
-  Widget logoApp() {
+  Widget logoApp(String filePath, double height, double width) {
     return Container(
         margin: EdgeInsets.only(left: 30, top: 50),
         child: Center(
           child: Image(
-            image: AssetImage('lib/assets/img/logo_joycash.png'),
+            image: AssetImage(filePath),
+            height: height,
+            width: width,
           ),
         ));
+  }
+
+  Widget loadingIndicator(){
+    return Center(child: Column(
+      children: <Widget>[
+        logoApp('lib/assets/img/push cart.gif', 150, 100),
+        Text(
+          "Please wait . . .",
+          style: TextStyle(
+            color: Colors.white
+          )
+          )
+      ],
+    ));
   }
 
   background(Color color1, Color color2, Color color3, Color color4) {

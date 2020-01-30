@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:shopjoy/screen/globalWidget/productListItem.dart';
 import 'package:shopjoy/screen/globalWidget/globalWidget.dart';
-import 'package:shopjoy/screen/userChart.dart';
+import 'package:shopjoy/screen/userCart.dart';
 
 class Dashboard extends StatefulWidget {
   @override
