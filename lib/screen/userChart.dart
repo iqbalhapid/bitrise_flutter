@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shopjoy/screen/globalWidget/globalWidget.dart';
+import 'package:shopjoy/screen/userCheckout.dart';
 
 class CartPage extends StatelessWidget {
   @override
@@ -81,7 +82,7 @@ class CartPage extends StatelessWidget {
                             color: Colors.white,
                           ),
                     ),
-                    onPressed: () {},
+                    onPressed:() =>  Navigator.push(context, MaterialPageRoute(builder: (context) => new CheckoutPage())),
                     color: Colors.amber,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15.0),

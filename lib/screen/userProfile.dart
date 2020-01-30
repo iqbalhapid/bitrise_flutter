@@ -83,7 +83,7 @@ with SingleTickerProviderStateMixin {
                 ),
               ),
               new Container(
-                decoration: GlobalWidget().background(Colors.blueGrey, Colors.grey, Colors.grey, Colors.blueGrey),
+                decoration: GlobalWidget().background(Colors.grey[100], Colors.grey, Colors.grey, Colors.grey[100]),
                 child: Padding(
                   padding: EdgeInsets.only(bottom: 25.0),
                   child: new Column(

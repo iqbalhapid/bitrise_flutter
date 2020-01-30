@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:shopjoy/screen/globalWidget/productListItem.dart';
 import 'package:shopjoy/screen/globalWidget/globalWidget.dart';
 import 'package:shopjoy/screen/userChart.dart';
@@ -12,71 +13,66 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: Colors.amberAccent,
-        title: Text(
-          "PRODUCT LIST",
-          style: TextStyle(color: Colors.white),
+        appBar: AppBar(
+          centerTitle: true,
+          backgroundColor: Colors.amberAccent,
+          title: Text(
+            "PRODUCT LIST",
+            style: TextStyle(color: Colors.white),
+          ),
+          actions: <Widget>[
+            globalWidget.buttonIcon(
+                Icon(Icons.favorite), 30, 'wish list', Colors.redAccent, () {}),
+            globalWidget.buttonIcon(
+                Icon(Icons.shopping_cart), 30, 'your chart', Colors.blueGrey,
+                () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => new CartPage()));
+            })
+          ],
         ),
-        actions: <Widget>[
-          globalWidget.buttonIcon(Icon(Icons.favorite), 30, 'wish list', Colors.redAccent, (){}),
-          globalWidget.buttonIcon(Icon(Icons.shopping_cart), 30, 'your chart', Colors.blueGrey, (){ Navigator.push(context, MaterialPageRoute( builder: (context) => new CartPage()));})
-        ],
-      ),
-      body: Stack(
-        children: <Widget>[ 
-          _buildProductListPage(),
-          _buildFilterWidgets(MediaQuery.of(context).size),
-          _buildAdsImagesWidgets()
-        ],
-      )    
-    );
+        body: Stack(
+          children: <Widget>[
+            _buildProductListPage(),
+            _buildFilterWidgets(MediaQuery.of(context).size),
+            _buildAdsImagesWidgets()
+          ],
+        ));
   }
-
 
   final globalWidget = new GlobalWidget();
 
   _buildAdsImagesWidgets() {
-    TabController imagesController = TabController(length: 3, vsync: this);
     return Container(
-      decoration: BoxDecoration(
-        color: Colors.grey[100]
-      ),
+      decoration: BoxDecoration(color: Colors.grey[100]),
       child: Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Container(
-        height: 150.0,
-        child: Center(
-          child: DefaultTabController(
-            length: 3,
-            child: Stack(
-              children: <Widget>[
-                TabBarView(
-                  controller: imagesController,
-                  children: <Widget>[
-                    Image( image : AssetImage('lib/assets/img/ad/ad1.jpg')),
-                    Image( image : AssetImage('lib/assets/img/ad/ad2.jpg')),
-                    Image( image : AssetImage('lib/assets/img/ad/ad3.jpg'))
-                  ],
-                ),
-                Container(
-                  alignment: FractionalOffset(0.5, 0.95),
-                  child: TabPageSelector(
-                    controller: imagesController,
-                    selectedColor: Colors.amberAccent,
-                    color: Colors.white,
-                  ),
-                ),
+        padding: const EdgeInsets.all(16.0),
+        child: Container(
+            height: 150.0,
+            child: CarouselSlider(
+              items: <Widget>[
+                Image( image: AssetImage('lib/assets/img/ad/ad1.jpg'),),
+                Image( image: AssetImage('lib/assets/img/ad/ad2.jpg'),),
+                Image( image: AssetImage('lib/assets/img/ad/ad3.jpg'),),
               ],
-            ),
-          ),
-        ),
+              height: 400,
+              aspectRatio: 16 / 9,
+              viewportFraction: 1.0,
+              initialPage: 0,
+              enableInfiniteScroll: true,
+              reverse: false,
+              autoPlay: true,
+              autoPlayInterval: Duration(seconds: 3),
+              autoPlayAnimationDuration: Duration(milliseconds: 800),
+              autoPlayCurve: Curves.fastOutSlowIn,
+              pauseAutoPlayOnTouch: Duration(seconds: 10),
+              enlargeCenterPage: true,
+              scrollDirection: Axis.horizontal,
+            )),
       ),
-    ),
     );
-    }
-    
+  }
+
   _buildProductListPage() {
     Size screenSize = MediaQuery.of(context).size;
     return Container(
@@ -98,10 +94,8 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
 
   _buildFilterWidgets(Size screenSize) {
     return Container(
-      decoration: BoxDecoration(
-        color: Colors.grey[100]
-      ),
-      margin: const EdgeInsets.fromLTRB(12, 180, 12,0),
+      decoration: BoxDecoration(color: Colors.grey[100]),
+      margin: const EdgeInsets.fromLTRB(12, 180, 12, 0),
       width: screenSize.width,
       child: Card(
         elevation: 4.0,
@@ -110,19 +104,25 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
-              globalWidget.buttonIcon(Icon(Icons.menu), 40, "show all", Colors.amberAccent, (){}),
-              globalWidget.buttonIcon(Icon(Icons.monetization_on), 40, "show all", Colors.amberAccent, (){}),
-              globalWidget.buttonIcon(Icon(Icons.motorcycle), 40, "show all", Colors.amberAccent, (){}),
-              globalWidget.buttonIcon(Icon(Icons.local_car_wash), 40, "show all", Colors.amberAccent, (){}),
-              globalWidget.buttonIcon(Icon(Icons.local_mall), 40, "show all", Colors.amberAccent, (){}),
-              globalWidget.buttonIcon(Icon(Icons.fastfood), 40, "show all", Colors.amberAccent, (){}),
+              globalWidget.buttonIcon(
+                  Icon(Icons.menu), 40, "show all", Colors.amberAccent, () {}),
+              globalWidget.buttonIcon(Icon(Icons.monetization_on), 40,
+                  "show all", Colors.amberAccent, () {}),
+              globalWidget.buttonIcon(Icon(Icons.motorcycle), 40, "show all",
+                  Colors.amberAccent, () {}),
+              globalWidget.buttonIcon(Icon(Icons.local_car_wash), 40,
+                  "show all", Colors.amberAccent, () {}),
+              globalWidget.buttonIcon(Icon(Icons.local_mall), 40, "show all",
+                  Colors.amberAccent, () {}),
+              globalWidget.buttonIcon(Icon(Icons.fastfood), 40, "show all",
+                  Colors.amberAccent, () {}),
             ],
           ),
         ),
       ),
     );
   }
-  
+
   _dummyProductsList() {
     return [
       ProductsListItem(

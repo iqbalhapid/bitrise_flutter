@@ -58,7 +58,7 @@ class SplashScreenState extends State<SplashScreen>
                     'lib/assets/img/logo_joycash.png',
                     height: 25.0,
                     fit: BoxFit.scaleDown,
-                  ))
+                  )),
             ],
           ),
           new Column(

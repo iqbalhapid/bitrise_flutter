@@ -6,6 +6,7 @@ import 'package:shopjoy/screen/homePage.dart';
 import 'package:shopjoy/screen/globalWidget/productDetail.dart';
 import 'package:shopjoy/screen/globalWidget/splashscreen.dart';
 import 'package:shopjoy/screen/userChart.dart';
+import 'package:shopjoy/screen/userCheckout.dart';
 
 class App extends StatelessWidget {
   
@@ -41,6 +42,8 @@ Route<dynamic> _getRoute(RouteSettings setting){
     return MaterialPageRoute(builder: (_) => Scaffold(body: ProductDetailPage()));
     case '/chartPage' : 
     return MaterialPageRoute(builder: (_) => Scaffold(body: CartPage()));
+    case '/checkoutPage' : 
+    return MaterialPageRoute(builder: (_) => Scaffold(body: CheckoutPage()));
   default :
     return null;
   }
